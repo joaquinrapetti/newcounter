@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 // import Counter from "./components/Counter";
+import WarningNotUsed from "./components/WarningNotUsed";
+import ListOfClicks from "./components/ListOfClicks";
 import "./App.css";
+
+const INITIAL_COUNTER_STATE = {
+  left: 0,
+  right: 0,
+  clicks: 0,
+  message: "counter state",
+};
 
 const App = () => {
   // const [counter, setCounter] = useState(0);
@@ -9,13 +18,7 @@ const App = () => {
   // const [right, setRight] = useState(0);
 
   // Unique State
-  const [counters, setCounters] = useState({
-    left: 0,
-    right: 0,
-    clicks: 0,
-    message: "counter state",
-  });
-
+  const [counters, setCounters] = useState(INITIAL_COUNTER_STATE);
   const [clicks, setClicks] = useState([]);
 
   const handleClickLeft = () => {
@@ -76,7 +79,11 @@ const App = () => {
       </div>
       <h1>Total Clicks: {clicks.length}</h1>
       <h1>{counters.message}</h1>
-      <h1>{clicks}</h1>
+      {clicks.length === 0 ? (
+        <WarningNotUsed />
+      ) : (
+        <ListOfClicks clicks={clicks} />
+      )}
     </div>
   );
 };
